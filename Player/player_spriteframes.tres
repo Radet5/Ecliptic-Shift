@@ -1,0 +1,41 @@
+[gd_resource type="SpriteFrames" load_steps=17 format=2]
+
+[ext_resource path="res://Imported_Assets/sprites/Left/3. Left_Walk Idle (frame 3).png" type="Texture" id=1]
+[ext_resource path="res://Imported_Assets/sprites/Left/4. Left_Walk Right Step (frame 4).png" type="Texture" id=2]
+[ext_resource path="res://Imported_Assets/sprites/Left/2. Left_Walk Left Step (frame 2).png" type="Texture" id=3]
+[ext_resource path="res://Imported_Assets/sprites/Left/1. Left_Walk Idle (frame 1).png" type="Texture" id=4]
+[ext_resource path="res://Imported_Assets/sprites/Right/4. Right_Walk Right Step (frame 4).png" type="Texture" id=5]
+[ext_resource path="res://Imported_Assets/sprites/Front/1. Front_Walk Idle (frame 1).png" type="Texture" id=6]
+[ext_resource path="res://Imported_Assets/sprites/Back/1. Back_Walk Idle (frame 1).png" type="Texture" id=7]
+[ext_resource path="res://Imported_Assets/sprites/Back/2. Back_Walk Left Step (frame 2).png" type="Texture" id=8]
+[ext_resource path="res://Imported_Assets/sprites/Back/3. Back_Walk Idle (frame 3).png" type="Texture" id=9]
+[ext_resource path="res://Imported_Assets/sprites/Back/4. Back_Walk Right Step (frame 4).png" type="Texture" id=10]
+[ext_resource path="res://Imported_Assets/sprites/Front/2. Front_Walk Left Step (frame 2).png" type="Texture" id=11]
+[ext_resource path="res://Imported_Assets/sprites/Front/3. Front_Walk Idle (frame 3).png" type="Texture" id=12]
+[ext_resource path="res://Imported_Assets/sprites/Front/4. Front_Walk Right Step (frame 4).png" type="Texture" id=13]
+[ext_resource path="res://Imported_Assets/sprites/Right/1. Right_Walk Idle (frame 1).png" type="Texture" id=14]
+[ext_resource path="res://Imported_Assets/sprites/Right/2. Right_Walk Left Step (frame 2).png" type="Texture" id=15]
+[ext_resource path="res://Imported_Assets/sprites/Right/3. Right_Walk Idle (frame 3).png" type="Texture" id=16]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": false,
+"name": "left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 5 ) ],
+"loop": false,
+"name": "right",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": false,
+"name": "backward",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"loop": false,
+"name": "forward",
+"speed": 5.0
+} ]

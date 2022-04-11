@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Enviorment/grid.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Player/Player.gd" type="Script" id=2]
+[ext_resource path="res://Player/OmniLight.gd" type="Script" id=3]
+[ext_resource path="res://Player/SpotLight.gd" type="Script" id=4]
+[ext_resource path="res://Levels/test Level 1 enviroment.tres" type="Environment" id=5]
+[ext_resource path="res://Player/player_spriteframes.tres" type="SpriteFrames" id=6]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1, 1, 0.415108 )
+
+[sub_resource type="QuadMesh" id=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0, 0.286275, 0.301961, 1 )
+
+[sub_resource type="SphereMesh" id=4]
+radius = 0.2
+height = 0.2
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_unshaded = true
+
+[node name="Player" type="KinematicBody"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.460781, -0.77311, 0, 0.280458, 0.592786, 0, 0.587479, -0.019445 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform( 0.15, 0, 0, 0, 0.129904, 0.5, 0, -0.075, 0.866025, 0, 0.685, 0 )
+frames = ExtResource( 6 )
+animation = "backward"
+
+[node name="OmniLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.707106, -0.707106, 0, 0.707106, 0.707106, 0, 1.72017, 0.147791 )
+light_energy = 0.5
+light_cull_mask = 4294966783
+shadow_enabled = true
+omni_attenuation = 1.51572
+script = ExtResource( 3 )
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.682432, 0.730949, 0, -0.730949, 0.682432, 0, 1.06287, 1.20727 )
+visible = false
+light_color = Color( 1, 0.631373, 0.384314, 1 )
+light_cull_mask = 4294966783
+script = ExtResource( 4 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 2, 2 )
+environment = ExtResource( 5 )
+fov = 75.0
+
+[node name="Spatial" type="Spatial" parent="."]
+transform = Transform( 11.3, 0, 0, 0, 1, 0, 0, 0, 9.5, 0, 0, 0 )
+visible = false
+
+[node name="testfloor" type="MeshInstance" parent="Spatial"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+mesh = SubResource( 2 )
+skeleton = NodePath("../..")
+material/0 = null
+
+[node name="testwall" type="MeshInstance" parent="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5 )
+mesh = SubResource( 2 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 3 )
+
+[node name="testwall2" type="MeshInstance" parent="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.5 )
+mesh = SubResource( 2 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 3 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="Spatial"]
+transform = Transform( 0.062966, 0.0268809, -0.0560729, 0.0669873, 0.868308, 0.491482, 0.0736284, -0.0412781, 0.0628913, 0, 3, 0 )
+light_energy = 0.01
+shadow_enabled = true
+
+[node name="shadowcaster" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0.2 )
+cast_shadow = 3
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
+
+[node name="grid" parent="." instance=ExtResource( 1 )]
+visible = false

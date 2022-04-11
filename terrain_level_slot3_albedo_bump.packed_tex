@@ -1,0 +1,8 @@
+{
+	"contains_albedo": true,
+	"resolution": 2048,
+	"src": {
+		"a": "res://terrain_textures/Asphalt010_2K-PNG/Asphalt010_2K_Displacement.png",
+		"rgb": "res://terrain_textures/Asphalt010_2K-PNG/Asphalt010_2K_Color.png"
+	}
+}

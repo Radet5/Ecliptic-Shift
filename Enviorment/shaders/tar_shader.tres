@@ -1,0 +1,90 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode specular_toon, cull_disabled, depth_draw_alpha_prepass, ambient_light_disabled;
+//render_mode unshaded;
+
+uniform sampler2D noise;
+uniform float height_scale = 0.5;
+uniform float plane_scale = 10.0;
+uniform float refraction = 0.05;
+uniform vec3 world_light_pos = vec3(43.586, 4.43, 21.44);
+uniform int epicenters_to_render = 1;
+uniform bool wave_noise;
+
+float wave(vec2 position){
+  position += texture(noise, position / plane_scale).x * (plane_scale/5.0) - (plane_scale/10.0);
+  vec2 wv = 1.0 - abs(sin(position));
+  return pow(1.0 - pow(wv.x * wv.y, 0.65), 4.0);
+}
+
+float height(vec2 position, float itime) {
+	vec2 p2;
+	p2.y = -position.y;
+	p2.x = position.x;
+	float time = itime/-3.0;
+	float d = 0.0;
+	if (wave_noise) {
+		d += wave((position + time) * 0.4) * 0.3;
+		d += wave((position - time) * 0.3) * 0.3;
+		d += wave((p2 + time) * 0.5) * 0.2;
+		d += wave((position - time) * 0.6) * 0.2;
+	}
+		vec2 epicenters[3] = {
+		vec2(272,174),
+		vec2(-10.0,0.0),
+		vec2(30.0,45.0)
+	};
+	float amp = .5;
+	float damping = 0.05;
+	
+	for (int i = 0; i < epicenters_to_render; i++) {
+		vec2 epicenter = epicenters[i];
+		float dist = distance(epicenter,position);
+		//float the_wave = pow( 1.0 -pow((1.0-abs(sin(dist-time*5.0))),0.65), 4.0);
+		float the_wave = sin(dist*3.14-time*5.0);
+		d += amp*exp(-dist*damping)*the_wave;
+	}
+	return d*height_scale;
+}
+void vertex() {
+  //vertex_position = VERTEX.xz / 2.0;
+	vec2 pos = VERTEX.xz;
+	float k = height(pos, TIME);
+	VERTEX.y += k;
+	
+	NORMAL = normalize(vec3(k - height(pos + vec2(0.1, 0.0), TIME), 0.1, k - height(pos + vec2(0.0, 0.1), TIME)));
+}
+
+
+void fragment() {
+	//fresnel = 1.0;
+	RIM = 0.5;
+	METALLIC = 0.0;
+	ROUGHNESS = 0.01;
+	ALBEDO = vec3(0,0,0);
+	//ALBEDO  += vec3(oldArea/newArea *0.2)*0.5;
+
+	ALPHA = 1.0;
+}"
+
+[sub_resource type="OpenSimplexNoise" id=2]
+octaves = 8
+period = 128.0
+
+[sub_resource type="NoiseTexture" id=3]
+width = 4096
+height = 4096
+seamless = true
+noise = SubResource( 2 )
+
+[resource]
+shader = SubResource( 1 )
+shader_param/height_scale = 0.2
+shader_param/plane_scale = 10.0
+shader_param/refraction = 0.05
+shader_param/world_light_pos = Vector3( 272, 0.75, 174 )
+shader_param/epicenters_to_render = 2
+shader_param/wave_noise = true
+shader_param/noise = SubResource( 3 )

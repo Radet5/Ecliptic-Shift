@@ -1,0 +1,8 @@
+{
+	"contains_albedo": false,
+	"resolution": 2048,
+	"src": {
+		"a": "res://terrain_textures/Ground037_2K-PNG/Ground037_2K_Roughness.png",
+		"rgb": "res://terrain_textures/Ground037_2K-PNG/Ground037_2K_NormalGL.png"
+	}
+}
